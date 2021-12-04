@@ -1,0 +1,486 @@
+@import "../../../../global/variables/colors";
+@import "../../../../global/variables/mixins";
+
+.home {
+  @include Relative;
+  margin-top: 20px;
+
+  @include mobile {
+    @include Relative2;
+    margin-top: 10px;
+  }
+}
+
+.carousel {
+  @include desktop {
+    margin: 30px 76px;
+  }
+
+  @include tablet {
+    margin: 30px 20px;
+  }
+
+  @include mobile {
+    display: none;
+  }
+
+  img {
+    @include desktop {
+      width: 1200px;
+      height: 500px;
+    }
+
+    @include tablet {
+      width: 100%;
+      height: 400px;
+    }
+  }
+
+  a {
+    display: none;
+  }
+
+  &Caption1 {
+    @include desktop {
+      margin: 140px -120px;
+      width: 510px;
+    }
+
+    @include tablet {
+      margin: 100px -60px;
+      width: 300px;
+    }
+
+    text-align: start !important;
+
+    h1 {
+      font-weight: 700;
+
+      @include desktop {
+        font-size: 55px;
+      }
+
+      @include tablet {
+        font-size: 36px;
+      }
+
+      .outlineStar {
+        margin-top: -10px;
+      }
+    }
+
+    p {
+      font-size: 15px;
+    }
+  }
+
+  &Caption2 {
+    @include desktop {
+      margin: 140px 450px;
+      width: 510px;
+    }
+
+    @include tablet {
+      margin-bottom: 100px;
+      margin-right: -80px;
+    }
+
+    text-align: end !important;
+
+    h1 {
+      font-weight: 700;
+
+      @include desktop {
+        font-size: 55px;
+      }
+
+      @include tablet {
+        font-size: 36px;
+      }
+
+      .outlineStar {
+        margin-top: -10px;
+      }
+    }
+
+    p {
+      font-size: 15px;
+      padding-left: 230px;
+    }
+  }
+
+  &Caption3 {
+    display: flex !important;
+
+    h1 {
+      font-weight: 700;
+
+      @include desktop {
+        font-size: 55px;
+        width: 1000px;
+        margin-top: -400px;
+        margin-left: -320px;
+      }
+
+      @include tablet {
+        font-size: 36px;
+        width: 600px;
+        margin-top: -320px;
+        margin-left: -190px;
+      }
+
+      .outlineStar {
+        margin-top: -10px;
+      }
+    }
+
+    p {
+      @include desktop {
+        margin-top: -400px;
+        margin-right: -110px;
+        font-size: 17px;
+        width: 500px;
+      }
+
+      @include tablet {
+        margin-top: -320px;
+        margin-right: -80px;
+        width: 300px;
+      }
+
+      text-align: end;
+    }
+  }
+}
+
+.carousel1 {
+  @include desktop {
+    display: none;
+  }
+
+  @include tablet {
+    display: none;
+  }
+
+  margin: 0 5%;
+
+  img {
+    width: 100%;
+    height: 350px;
+  }
+
+  a {
+    display: none;
+  }
+
+  &Caption1 {
+    background-color: rgb(0, 0, 0, 0.3) !important;
+    margin-left: -30px;
+    width: 300px;
+    margin-bottom: 70px;
+
+    h1 {
+      font-size: 35px;
+      width: 300px;
+    }
+
+    p {
+      font-size: 12px;
+      width: 300px;
+    }
+  }
+}
+
+.container {
+  @include desktop {
+    margin: 60px 0 100px 70px !important;
+  }
+
+  @include mobile {
+    margin-left: -10px !important;
+  }
+
+  .row {
+    margin-right: -76px !important;
+
+    .col {
+      position: relative;
+      padding: 0;
+      margin: 6px;
+      border: 1px solid transparent;
+
+      &:hover {
+        @include desktop {
+          border: 1px solid $colorgray-500;
+        }
+      }
+
+      &:hover .overlay {
+        @include desktop {
+          display: block;
+        }
+      }
+
+      .img1 {
+        width: 260px;
+        padding: 40px 0 80px 115px;
+      }
+
+      .img2 {
+        width: 300px;
+        margin: 0 0 20px 40px;
+      }
+
+      .overlay {
+        display: none;
+        position: absolute;
+        top: 45%;
+        left: 34%;
+        transition: all 0.5s ease-in-out;
+      }
+    }
+  }
+}
+
+.BasicTabs {
+  .tabPanel {
+    div {
+      @include mobile {
+        padding: 0;
+      }
+    }
+  }
+
+  .box {
+    @include desktop {
+      margin: 0 76px !important;
+      padding-left: 16%;
+    }
+
+    @include tablet {
+      margin: 0 26px !important;
+      padding-left: 17%;
+    }
+
+    @include mobile {
+      border-bottom: 1px solid $colorgray-600;
+      padding-left: 10%;
+    }
+
+    .tab {
+      font-weight: 700;
+
+      @include desktop {
+        padding: 7px 50px !important;
+        font-size: 15px;
+      }
+
+      @include mobile {
+        font-size: 12px;
+      }
+    }
+
+    .tab2 {
+      font-weight: 700;
+
+      @include desktop {
+        padding: 7px 50px !important;
+        font-size: 15px;
+      }
+
+      @include mobile {
+        display: none;
+      }
+    }
+  }
+}
+
+.slide1 {
+  @include mobile {
+    display: none;
+  }
+}
+
+.slide2 {
+  @include desktop {
+    display: none;
+  }
+
+  @include tablet {
+    display: none;
+  }
+}
+
+.slideimage {
+  @include desktop {
+    margin-right: 30px;
+  }
+
+  @include mobile {
+    margin-left: 20px;
+  }
+
+  text-align: center;
+
+  &:hover &Hover {
+    background-color: red !important;
+    font-size: 12px !important;
+    font-weight: 500;
+    border: 1px solid transparent;
+  }
+
+  img {
+    @include desktop {
+      width: 278px;
+      height: 178px;
+    }
+
+    @include tablet {
+      width: 158px;
+      height: 101px;
+    }
+
+    @include mobile {
+      width: 158px;
+      height: 101px;
+    }
+  }
+
+  p {
+    font-size: 15px;
+    margin: 10px 0 7px 0;
+    color: $colorgray-600;
+  }
+
+  span {
+    font-weight: 700;
+    color: $colordanger;
+    font-size: 14px;
+  }
+
+  &Hover {
+    margin-top: 10px;
+    background-color: white !important;
+    border: 1px solid transparent !important;
+    font-size: 12px !important;
+  }
+}
+
+.addcart {
+  @include Relative;
+  display: flex;
+
+  &Content {
+    margin: 50px 20px;
+
+    &Title {
+      display: flex;
+
+      .nav {
+        color: $colorgray-600;
+
+        &:hover {
+          color: $colorBlack;
+        }
+      }
+
+      span {
+        padding-top: 7px;
+      }
+    }
+
+    h3 {
+      margin-left: 15px;
+    }
+
+    strong {
+      margin-left: 17px;
+      font-size: 20px;
+    }
+    &Price {
+      margin: 20px 17px;
+      display: flex;
+      div {
+        // margin-right: 20px;
+        display: flex;
+        p {
+          border: 1px solid #ccc;
+          padding: 5px 8px;
+          background-color: $colorgray-300;
+          cursor: pointer;
+        }
+        p:nth-child(2) {
+          padding: 5px 12px;
+          border: 1px solid #ccc;
+          background-color: $colorgray-100;
+          cursor: default;
+        }
+      }
+    }
+    .Button {
+      margin-left: 20px;
+      height: 36px !important;
+    }
+    .delivery {
+      width: 283px;
+      span {
+        font-size: 16px;
+        font-weight: 700;
+        padding-right: 30px;
+        padding-bottom: 20px;
+        display: block;
+      }
+      img {
+        width: 92px;
+        height: 46px;
+      }
+    }
+    .bank {
+      width: 283px;
+      span {
+        font-size: 16px;
+        font-weight: 700;
+        padding-right: 30px;
+        padding-bottom: 20px;
+        display: block;
+      }
+      img {
+        width: 92px;
+        height: 46px;
+      }
+    }
+    .p {
+      padding: 20px 80px 0 20px;
+      font-weight: 700;
+      font-size: 15px;
+    }
+  }
+}
+
+.indicator {
+  cursor: pointer;
+  text-align: center;
+  border: 1px $colorgray-500 solid;
+
+  img {
+    width: 130px;
+    height: 97px;
+  }
+
+  margin-right: 10px;
+}
+
+.slideshow {
+  margin: 0px 0 0 76px;
+  width: 600px;
+
+  &Image {
+    width: 585px;
+    height: 374px;
+    margin-left: 10px;
+  }
+
+  ul {
+    margin-left: -45px !important;
+  }
+}

@@ -1,0 +1,69 @@
+.header {
+  width: 100%;
+  height: 80px;
+  background-color: black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0 70px;
+}
+
+.headerLogSing {
+  margin-top: 30px;
+}
+
+.headerLogSingslash {
+  color: #6c757d;
+  font-size: 22px;
+}
+
+.headerLogo {
+  margin-top: 5px;
+}
+
+.navbar {
+  background-color: #ced4da !important;
+  padding-bottom: 1px !important;
+  padding-top: 1px !important;
+}
+
+.navbar .navbarCollapse {
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  max-height: 170px !important;
+}
+
+.navbar_Navlink {
+  color: black !important;
+  font-size: 14.4px;
+  font-weight: 700;
+  font-family: Roboto, arial, helvetica;
+  margin: 0 14px;
+  line-height: 50px;
+  padding-bottom: 1px !important;
+  padding-top: 1px !important;
+}
+
+.navbar_Navlink a {
+  padding-bottom: 1px !important;
+  padding-top: 1px !important;
+  color: black !important;
+  font-size: 14.4px;
+  font-weight: 700;
+}
+
+.navbar_Navlink a:hover {
+  color: #dc3545 !important;
+}
+
+.navbar_Navlink:hover {
+  color: #dc3545 !important;
+}
+
+.navbar_Scroll {
+  color: transparent !important;
+}
+/*# sourceMappingURL=Navbar.module.css.map */

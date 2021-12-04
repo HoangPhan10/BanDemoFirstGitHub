@@ -1,0 +1,171 @@
+.loginButton {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  margin-top: 25px;
+  font-weight: 700;
+  line-height: 25px;
+  cursor: pointer;
+}
+
+.loginButton:hover {
+  color: #fff;
+}
+
+.modal {
+  margin-top: 150px;
+  width: 400px;
+}
+
+.modalContent p {
+  color: #212529;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 10px 0;
+}
+
+.modalContent span {
+  font-size: 13px;
+  color: #dc3545;
+}
+
+.modalContent input {
+  outline: none;
+  border: 1px solid #198754;
+  border-radius: 5px;
+  width: 100%;
+  padding: 5px;
+}
+
+.modalContentErr {
+  color: #dc3545 !important;
+  font-size: 14px !important;
+}
+
+.loginBtn {
+  color: #6c757d;
+  font-size: 13px;
+}
+
+.loginBtn:hover {
+  color: #dc3545;
+}
+
+.account {
+  color: #adb5bd !important;
+  font-weight: bold;
+  font-size: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.accountDropdown a {
+  color: #adb5bd !important;
+}
+
+.accountDropdown a::after {
+  display: none;
+}
+
+.accountDropdown div a {
+  color: black !important;
+}
+
+.accountFaUserAlt {
+  margin-top: 7px;
+  margin-left: -10px;
+  font-size: 16px;
+}
+
+.dashboard {
+  margin: 30px 70px 0 86px;
+  font-size: 17px;
+}
+
+.dashboard .dashboard2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.dashboard .dashboard2Link {
+  padding: 0 5px !important;
+}
+
+.dashboard .dashboard2 strong {
+  margin: 0 5px;
+}
+
+.dashboard p {
+  margin-top: 20px;
+}
+
+.dashboardBtn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+.dashboardBtnBtn1 {
+  background-color: #fff !important;
+  color: #334852 !important;
+  font-weight: 600 !important;
+  border: 1px solid #ced4da !important;
+  width: 390px;
+  font-size: 18px !important;
+  padding: 15.5px 0 !important;
+  margin: 0 30px 30px 0;
+}
+
+.dashboardBtnBtn1:hover {
+  background-color: #334852 !important;
+  color: #fff !important;
+}
+
+.address {
+  margin: 30px 86px 0;
+  width: 600px;
+}
+
+.addressTitle {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-bottom: 1px solid black;
+  padding-bottom: 20px;
+}
+
+.addressContent {
+  margin: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.addressContentHandle {
+  padding-top: 40px;
+  font-size: 20px;
+}
+
+.addressBody input {
+  padding: 4px 0 4px 7px;
+  margin-bottom: 15px;
+  outline: none;
+  border: 1px solid #198754;
+  border-radius: 5px;
+}
+
+.addressBody span {
+  color: #dc3545;
+}
+/*# sourceMappingURL=Account.module.css.map */
