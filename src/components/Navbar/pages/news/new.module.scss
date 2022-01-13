@@ -1,0 +1,230 @@
+@import "../../../../global/variables/colors";
+@import "../../../../global/variables/mixins";
+.news {
+  @include Relative;
+  margin: 0 55px 0 75px;
+  h5 {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 50px;
+  }
+  &Content {
+    display: flex;
+    &Grid {
+      margin-left: 20px;
+      flex-wrap: wrap;
+      display: flex;
+      &Six {
+        border: 1px solid $colorgray-300;
+        position: relative;
+        height: 310px;
+        width: 280px;
+        padding: 0 !important;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        div {
+          position: absolute;
+          top: 30px;
+          left: -10px;
+          width: 45px;
+          font-size: 15px;
+          height: 45px;
+          background-color: $colorbutton;
+          text-align: center;
+          padding: 3px 6px;
+          color: white;
+          border: 1px solid transparent;
+          border-radius: 50%;
+          line-height: 16px;
+        }
+        &:hover {
+          box-shadow: 0px 0px 2px 2px $colorgray-500;
+        }
+        img {
+          width: 277px;
+          height: 204px;
+        }
+        strong {
+          margin-top: 5px;
+          color: $colorgray-900;
+          padding: 0 10px;
+          overflow: hidden;
+          display: block;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
+        p {
+          margin-top: 10px;
+          padding: 0 10px;
+          color: $colorgray-800;
+          line-height: 16px;
+          font-size: 15px;
+          overflow: hidden;
+          display: block;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
+      }
+    }
+  }
+}
+
+.newpost {
+  width: 290px;
+  border-right: 2px solid $colorgray-600;
+  .Input {
+    input {
+      padding: 4px 8px;
+      outline: none;
+      width: 217px;
+      border: 1px solid #ccc;
+    }
+    button {
+      border: none;
+      background-color: $colorbutton;
+      color: white;
+      padding: 0px 10px 4px 10px;
+      font-size: 20px;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+  }
+  h6 {
+    margin: 20px 0;
+  }
+  &List {
+    width: 255px;
+    border: 1px solid $colorgray-400;
+    &Content {
+      display: flex !important;
+      margin: 5px 10px;
+      border-bottom: 1px solid $colorgray-400;
+      img {
+        width: 45px;
+        height: 45px;
+      }
+      p {
+        color: $colorgray-700;
+        margin-top: 5px;
+        margin-left: 10px;
+        line-height: 18px;
+        font-size: 14px;
+        overflow: hidden;
+        display: block;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        &:hover {
+          color: $colorgray-900;
+        }
+      }
+    }
+  }
+}
+
+.new1 {
+  @include Relative;
+  margin: 50px 75px;
+  display: flex;
+  &Content {
+    width: 100%;
+    margin-left: 30px;
+    border: 1px solid $colorgray-400;
+    padding: 20px;
+    .Span {
+      padding: 0;
+      color: $colorgray-700;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    h3,
+    h4,
+    h6 {
+      color: black;
+    }
+    img {
+      width: 100%;
+      height: 600px;
+    }
+    .Image {
+      width: 660px;
+      height: 700px;
+      align-items: center;
+      margin-left: 85px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-weight: 400;
+    }
+  }
+}
+
+.link {
+  display: flex;
+  padding-left: 20px;
+
+  &Button {
+    height: 35px;
+    padding-top: 5px !important;
+    text-align: center;
+    color: white !important;
+    border-radius: 5px;
+    margin-right: 10px;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  .facebook {
+    background-color: $colorfacebook;
+  }
+  .instagram {
+    background-color: $colorinstagram;
+  }
+  .twitter {
+    background-color: $colortwitter;
+  }
+  .pinterest {
+    background-color: $colorpinterest;
+  }
+}
+.comment {
+  margin-top: 30px;
+  width: 100%;
+  background-color: $colorgray-200;
+  padding: 20px;
+  input {
+    width: 100%;
+    padding: 10px;
+    padding-bottom: 80px;
+    outline: none;
+    border: 1px solid $colorgray-300;
+  }
+  &Flex {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    div {
+      strong {
+        display: block;
+        padding-bottom: 5px;
+        font-size: 14px;
+      }
+      input {
+        width: 245px;
+        padding: 7px;
+      }
+    }
+  }
+  &Button {
+    background-color: $colorbutton;
+    font-weight: 600;
+    color: white !important;
+    margin-top: 20px;
+    width: 110px;
+    &:hover {
+      color: $colorgray-500 !important;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import NavbarCompt from "./components/Navbar/NavbarCompt";
+import NavbarCompt from "./components/Navbar/NavbarCompt/NavbarCompt";
 function App() {
   return (
     <div>

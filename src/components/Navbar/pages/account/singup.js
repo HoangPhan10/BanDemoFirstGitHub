@@ -2,47 +2,53 @@ import { Button, Modal, Nav, NavDropdown } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Account.module.scss";
-import { users } from "../../../../Json/Users.js";
 import Login from "./Login";
 import { FaUserAlt } from "react-icons/fa";
-import useLocalStorage from "../../../hooks/useLocalStorage";
+// import useLocalStorage from "../../../hooks/useLocalStorage";
+import CallApi from "../../../api/callApi";
 
 function Singup() {
   const [valueEmail, setValueEmail] = useState("");
   const [valuePassword, setValuePassword] = useState("");
   const [toggle, setToggle] = useState(false);
-  const newUser = JSON.parse(window.localStorage.getItem("user"));
-  const [dataUser, setDataUser] = useLocalStorage("user", newUser);
+  const id = JSON.parse(window.localStorage.getItem("id"));
+  const [idUser, setIdUser] = useState(id);
   const [show, setShow] = useState(false);
-  const [show2, setShow2] = useState(newUser.email);
+  const [show2, setShow2] = useState(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleToggel = () => {
-    const newUsers = JSON.parse(window.localStorage.getItem("users"));
-    const result = (newUsers || users).find((el) => {
-      return el.email === valueEmail && el.password === valuePassword;
+    CallApi("", "GET", null).then((res) => {
+      const result = res.data.find((el) => {
+        return el.email === valueEmail && el.password === valuePassword;
+      });
+      if (result) {
+        window.localStorage.setItem("id", JSON.stringify(result.id));
+        setToggle(false);
+        handleClose();
+        setShow2(false);
+        window.location.href = "/home";
+      } else {
+        setToggle(true);
+      }
     });
-    if (result !== undefined) {
-      window.localStorage.setItem("user", JSON.stringify(result));
-      setToggle(false);
-      handleClose();
-      setShow2(false);
-    } else {
-      setToggle(true);
-    }
   };
   const handleLogout = () => {
     const choice = window.confirm("Bạn có chắc chắn muốn đăng xuất ?");
     if (choice) {
-      setDataUser({});
+      window.localStorage.setItem("id", JSON.stringify(0));
+      setIdUser(0);
+      setShow2(true);
+      window.location.href = "/home";
     }
   };
   useEffect(() => {
-    if (dataUser) {
-      setShow2((er) => (er = !er));
+    if (idUser > 0) {
+      setShow2(false);
+    } else {
+      setShow2(true);
     }
-  }, [dataUser]);
-
+  }, [idUser]);
   return (
     <>
       {show2 && (
@@ -114,7 +120,7 @@ function Singup() {
             <NavDropdown.Item as={Link} to="/account/accountInfor">
               Thông tin tài khoản
             </NavDropdown.Item>
-            <NavDropdown.Item onClick={handleLogout} as={Link} to="/home">
+            <NavDropdown.Item onClick={handleLogout}>
               Đăng xuất
             </NavDropdown.Item>
           </NavDropdown>

@@ -13,7 +13,7 @@ import {
   slideImages2,
   slideImages2Mobile,
   slideImagesMobile,
-} from "./Image";
+} from "../../../../assets/images/home/Product/imageProduct";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

@@ -1,9 +1,23 @@
 import styles from "./Account.module.scss";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import CallApi from "../../../api/callApi";
+import { useState, useEffect } from "react";
+
 function Dashboard() {
-  const user = JSON.parse(window.localStorage.getItem("user"));
-  const validName = user.email.split("@")[0];
+  const id = JSON.parse(window.localStorage.getItem("id"));
+  const [emailUser, setEmailUser] = useState("");
+  useEffect(() => {
+    CallApi(`users/${id}`, "GET", null).then((res) => {
+      if (res) {
+        setEmailUser(res.data.email);
+      }
+    });
+  }, [id]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  const validName = emailUser.split("@")[0];
   return (
     <>
       <div className={styles.dashboard}>

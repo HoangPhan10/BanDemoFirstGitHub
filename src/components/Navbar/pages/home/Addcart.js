@@ -1,31 +1,38 @@
 import styles from "./home.module.scss";
-import Slideshow from "./SlideShow";
+import { useState, useEffect, createContext } from "react";
 import { Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Button from "@mui/material/Button";
+import Slideshow from "./SlideShow";
+import { slide5Image } from "../../../../assets/images/home/Product/imageProduct";
+import SlideImage from "./Slide5Image";
+import TabsEvaluate from "./TabsEvaluate";
+import CallApi from "../../../api/callApi";
 import {
-  imagespm1,
-  imagespm2,
-  imagespm3,
-  imagespm4,
   delivery6,
   delivery5,
   delivery4,
   delivery3,
   delivery2,
   delivery1,
+} from "../../../../assets/images/home/Delivery/imageDelivery";
+import {
   bank6,
   bank5,
   bank4,
   bank3,
   bank2,
   bank1,
-} from "./Image";
-import Button from "@mui/material/Button";
-import { useState } from "react";
-
-function AddCart() {
+} from "../../../../assets/images/home/Bank/imageBank";
+export const Images = createContext();
+function AddCart(props) {
   const [num, setNum] = useState(1);
-
+  const [evaluate, setEvaluate] = useState({});
+  const id = window.localStorage.getItem("id");
+  const index = window.location.href.split("Cart/")[1];
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [index]);
   const handleApart = () => {
     setNum((prev) => {
       if (prev === 1) {
@@ -39,79 +46,126 @@ function AddCart() {
     setNum(num + 1);
   };
 
-  const handleAddCart = () => {
-    console.log(2250000 + 2000000);
+  const handleAddCart = (namePrd, price, img) => {
+    if (parseInt(id) === 0) {
+      alert("Qúy khách vui lòng đăng nhập");
+    } else {
+      CallApi(`user/${id}`, "POST", {
+        namePrd: namePrd,
+        price: price,
+        quantity: num,
+        total: parseInt(price.split(",").join("")) * num,
+        url: index,
+        img: img,
+      });
+      setNum(1);
+      window.location.href = "/viewcart";
+    }
   };
+  useEffect(() => {
+    CallApi(`evaluates/${index}`, "GET", null).then((res) => {
+      if (res) {
+        setEvaluate(res.data);
+      }
+    });
+  }, [index]);
   return (
-    <>
+    <Images.Provider value={props}>
       <div className={styles.addcart}>
-        <Slideshow
-          img1={imagespm1}
-          img2={imagespm2}
-          img3={imagespm3}
-          img4={imagespm4}
-        />
-        <div className={styles.addcartContent}>
-          <div className={styles.addcartContentTitle}>
-            <Nav.Link className={styles.nav} as={Link} to="/home">
-              Trang chủ
-            </Nav.Link>
-            <span>/</span>
-            <Nav.Link className={styles.nav} as={Link} to="/home">
-              Nữ
-            </Nav.Link>
-            <span>/</span>
-            <Nav.Link className={styles.nav} as={Link} to="/home">
-              Classic
-            </Nav.Link>
+        <div style={{ display: "flex" }}>
+          {/* slideshow */}
+          <div>
+            {" "}
+            <Slideshow />
           </div>
-          <h3>Chuck Taylor Classic</h3>
-          <strong>1,250,000 đ</strong>
-          <div className={styles.addcartContentPrice}>
-            <div>
-              {" "}
-              <p onClick={handleApart}>-</p> <p>{num}</p>{" "}
-              <p onClick={handleAdd}>+</p>
+          {/* ------------- */}
+          {evaluate && (
+            <div className={styles.addcartContent}>
+              <div className={styles.addcartContentTitle}>
+                <Nav.Link className={styles.nav} as={Link} to="/home">
+                  TRANG CHỦ
+                </Nav.Link>
+                <span>/</span>
+                <Nav.Link
+                  className={styles.nav}
+                  as={Link}
+                  to={evaluate.linkCategory}
+                >
+                  {evaluate.category}
+                </Nav.Link>
+                <span>{evaluate.slash}</span>
+                <Nav.Link
+                  className={styles.nav}
+                  as={Link}
+                  to={evaluate.linkType}
+                >
+                  {evaluate.type}
+                </Nav.Link>
+              </div>
+              <h3>{evaluate.nameProduct}</h3>
+              <strong>{evaluate.price}đ</strong>
+              <div className={styles.addcartContentPrice}>
+                <div>
+                  {" "}
+                  <p onClick={handleApart}>-</p> <p>{num}</p>{" "}
+                  <p onClick={handleAdd}>+</p>
+                </div>
+                <button
+                  className={styles.Button}
+                  onClick={() =>
+                    handleAddCart(
+                      evaluate.nameProduct,
+                      evaluate.price,
+                      props.img1
+                    )
+                  }
+                  // href="/viewcart"
+                >
+                  THÊM VÀO GIỎ
+                </button>
+              </div>
+              <div style={{ marginLeft: 17, display: "flex" }}>
+                <div className={styles.delivery}>
+                  <span>Tính phí ship tự động</span>
+                  <img alt="" src={delivery1} />
+                  <img alt="" src={delivery2} />
+                  <img alt="" src={delivery3} />
+                  <img alt="" src={delivery4} />
+                  <img alt="" src={delivery5} />
+                  <img alt="" src={delivery6} />
+                </div>
+                <div className={styles.bank}>
+                  <span>Thanh toán</span>
+                  <img alt="" src={bank1} />
+                  <img alt="" src={bank2} />
+                  <img alt="" src={bank3} />
+                  <img alt="" src={bank4} />
+                  <img alt="" src={bank5} />
+                  <img alt="" src={bank6} />
+                </div>
+              </div>
+              <p className={styles.p}>
+                "Hãy trở thành Affilicate của chúng tôi để tìm thêm thu nhập thụ
+                động, kiếm tiền online"
+              </p>
+              <Button
+                variant="contained"
+                color="error"
+                className={styles.Button}
+              >
+                Đăng ký Affilicate
+              </Button>
             </div>
-            <Button
-              variant="contained"
-              color="error"
-              className={styles.Button}
-              onClick={handleAddCart}
-            >
-              THÊM VÀO GIỎ
-            </Button>
-          </div>
-          <div style={{ marginLeft: 17, display: "flex" }}>
-            <div className={styles.delivery}>
-              <span>Tính phí ship tự động</span>
-              <img alt="" src={delivery1} />
-              <img alt="" src={delivery2} />
-              <img alt="" src={delivery3} />
-              <img alt="" src={delivery4} />
-              <img alt="" src={delivery5} />
-              <img alt="" src={delivery6} />
-            </div>
-            <div className={styles.bank}>
-              <span>Thanh toán</span>
-              <img alt="" src={bank1} />
-              <img alt="" src={bank2} />
-              <img alt="" src={bank3} />
-              <img alt="" src={bank4} />
-              <img alt="" src={bank5} />
-              <img alt="" src={bank6} />
-            </div>
-          </div>
-          <p className={styles.p}>
-            "Hãy trở thành Affilicate của chúng tôi để tìm thêm thu nhập thụ
-            động, kiếm tiền online"
-          </p>
-          <Button variant="contained" color="error" className={styles.Button}>
-            Đăng ký Affilicate
-          </Button>
+          )}
+          {!evaluate && <h4>Đang load</h4>}
+        </div>
+        <TabsEvaluate />
+        <div className={styles.slide5Image}>
+          <h4>SẢN PHẨM TƯƠNG TỰ</h4>
+          <SlideImage slide={props.image || slide5Image} />
         </div>
       </div>
-    </>
+    </Images.Provider>
   );
 }
 

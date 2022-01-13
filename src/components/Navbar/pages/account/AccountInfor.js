@@ -1,19 +1,38 @@
 import styles from "./Account.module.scss";
 import { Button } from "react-bootstrap";
-import { useState } from "react";
-import useLocalStorage from "../../../hooks/useLocalStorage";
+import { useState, useEffect } from "react";
+import CallApi from "../../../api/callApi";
 
 function AccountInfor() {
-  const user = JSON.parse(window.localStorage.getItem("user"));
-  const users = JSON.parse(window.localStorage.getItem("users"));
+  const id = JSON.parse(window.localStorage.getItem("id"));
+  const [passUser, setPassUser] = useState("");
+  const [emailUser, setEmailUser] = useState("");
 
-  const [newUser, setNewUser] = useLocalStorage("user", user);
-  const [newUsers, setNewUsers] = useLocalStorage("users", users);
-
-  const [firstName, setFirstName] = useState(newUser.fullName.firstName);
-  const [lastName, setLastName] = useState(newUser.fullName.lastName);
-  const [displayName, setDisplayName] = useState(newUser.fullName.displayName);
-  const [email, setEmail] = useState(newUser.email);
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    CallApi("", "GET", null).then((res) => {
+      if (res) {
+        setUsers(res.data);
+      }
+    });
+    CallApi(`users/${id}`, "GET", null).then((res) => {
+      if (res) {
+        setFirstName(res.data.fullName.firstName);
+        setLastName(res.data.fullName.lastName);
+        setDisplayName(res.data.fullName.displayName);
+        setPassUser(res.data.password);
+        setEmail(res.data.email);
+        setEmailUser(res.data.email);
+      }
+    });
+  }, [id]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [password3, setPassword3] = useState("");
@@ -25,9 +44,10 @@ function AccountInfor() {
   const [toggle2, setToggle2] = useState(false);
   const [toggle3, setToggle3] = useState(false);
   const [toggle4, setToggle4] = useState(false);
+  const [toggle5, setToggle5] = useState(false);
 
   const handle1 = () => {
-    setToggle1(password1 !== newUser.password);
+    setToggle1(password1 !== passUser);
   };
   const handle2 = () => {
     setToggle2(password2.trim().length <= 5);
@@ -39,6 +59,13 @@ function AccountInfor() {
     const re =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const resultEmail = re.test(String(email).toLowerCase());
+    const set = users.find((el) => {
+      if (el.email === email && el.email !== emailUser) {
+        return true;
+      }
+      return false;
+    });
+    setToggle5(set);
     setToggle4(!resultEmail);
   };
   const handleSubmit = () => {
@@ -47,6 +74,7 @@ function AccountInfor() {
       !toggle2 &&
       !toggle3 &&
       !toggle4 &&
+      !toggle5 &&
       firstName.trim().length !== 0 &&
       lastName.trim().length !== 0 &&
       displayName.trim().length !== 0 &&
@@ -55,32 +83,13 @@ function AccountInfor() {
       password2.trim().length !== 0 &&
       password3.trim().length !== 0
     ) {
-      setNewUser({
-        ...newUser,
-        fullName: {
-          firstName: firstName,
-          lastName: lastName,
-          displayName: displayName,
-        },
+      CallApi(`user/${id}`, "POST", {
         email: email,
         password: password3,
-      });
-      const el = newUsers.map((el) => {
-        if (el.id === newUser.id) {
-          el = {
-            ...el,
-            email: email,
-            password: password3,
-            fullName: {
-              firstName: firstName,
-              lastName: lastName,
-              displayName: displayName,
-            },
-          };
-        }
-        return el;
-      });
-      setNewUsers(el);
+        firstName: firstName,
+        lastName: lastName,
+        displayName: displayName,
+      }).then((res) => {});
       setSuccess(true);
       setErr(false);
     } else {
@@ -132,6 +141,7 @@ function AccountInfor() {
         </div>
         <div>
           <p>Địa chỉ email *</p>
+          {toggle5 && <span>Địa chỉ email đã được đăng ký</span>}
           <input
             style={{ width: "100%" }}
             type="email"

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "react-slideshow-image/dist/styles.css";
 // 4 image
 function SlideImage(props) {
+  
   return (
     <div className={styles.slide1}>
       <div className="slide-container">
@@ -19,10 +20,9 @@ function SlideImage(props) {
                   <div>
                     <Button
                       as={Link}
-                      to="/addcart"
-                      // to={`/Cart/${slideImage.title1.split(" ").join("-")}-${
-                      //   slideImage.id1
-                      // }`}
+                      to={`/Cart/${slideImage.title1.split(" ").join("-")}-${
+                        slideImage.id1
+                      }`}
                       className={styles.slideimageHover}
                     >
                       THÊM VÀO GIỎ
@@ -36,7 +36,6 @@ function SlideImage(props) {
                   <div>
                     <Button
                       className={styles.slideimageHover}
-                      onClick={console.log(2)}
                       as={Link}
                       to={`/Cart/${slideImage.title2.split(" ").join("-")}-${
                         slideImage.id2
@@ -53,7 +52,6 @@ function SlideImage(props) {
                   <div>
                     <Button
                       className={styles.slideimageHover}
-                      onClick={console.log(2)}
                       as={Link}
                       to={`/Cart/${slideImage.title3.split(" ").join("-")}-${
                         slideImage.id3
@@ -70,7 +68,6 @@ function SlideImage(props) {
                   <div>
                     <Button
                       className={styles.slideimageHover}
-                      onClick={console.log(2)}
                       as={Link}
                       to={`/Cart/${slideImage.title4.split(" ").join("-")}-${
                         slideImage.id4

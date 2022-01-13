@@ -1,13 +1,18 @@
 import { Button, Modal } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import clsx from "clsx";
 import styles from "./Account.module.scss";
-import { users } from "../../../../Json/Users.js";
-import useLocalStorage from "../../../hooks/useLocalStorage";
-
+import CallApi from "../../../api/callApi";
 function Login() {
   const [show, setShow] = useState(false);
-  const [dataUsers, setDataUsers] = useLocalStorage("users", users);
+  const [dataUsers, setDataUsers] = useState([]);
+  useEffect(() => {
+    CallApi("", "GET", null).then((res) => {
+      if (res) {
+        setDataUsers(res.data);
+      }
+    });
+  }, []);
   const [valueEmail, setValueEmail] = useState("");
   const [valuePassword, setValuePassword] = useState("");
   const [valuePassword2, setValuePassword2] = useState("");
@@ -37,10 +42,10 @@ function Login() {
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const resultEmail = re.test(String(valueEmail).toLowerCase());
     setToggleEmail(!resultEmail);
-    const userE = (dataUsers || users).find(
-      (user) => user.email === valueEmail
-    );
-    setToggleEmail2(userE ? true : false);
+    CallApi("", "GET", null).then((res) => {
+      const userE = res.data.find((user) => user.email === valueEmail);
+      setToggleEmail2(userE ? true : false);
+    });
   };
   const updateUsers = () => {
     if (
@@ -50,22 +55,15 @@ function Login() {
       !toggleEmail2 &&
       valueEmail.length !== 0
     ) {
-      setDataUsers([
-        ...dataUsers,
-        {
-          id: dataUsers.length + 1 || users.length + 1,
-          email: valueEmail,
-          password: valuePassword,
-          addresses: [],
-          fullName: {
-            firstName: "",
-            lastName: "",
-            displayName: "",
-          },
-          order: [],
-          cart: [],
-        },
-      ]);
+      CallApi("create/user", "POST", {
+        id: dataUsers.length + 1,
+        email: valueEmail,
+        password: valuePassword,
+        addresses: [],
+        fullName: {},
+        order: [],
+        cart: [],
+      });
       setValueEmail("");
       setValuePassword("");
       setValuePassword2("");

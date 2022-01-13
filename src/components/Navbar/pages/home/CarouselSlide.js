@@ -1,18 +1,23 @@
 import styles from "./home.module.scss";
 import { Carousel, Container, Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import slide1 from "../../../../assets/images/home/Slide/slide-1.jpg";
-import slide2 from "../../../../assets/images/home/Slide/slide-2.jpg";
-import slide3 from "../../../../assets/images/home/Slide/slide-3.jpg";
-import slide11 from "../../../../assets/images/home/Slide/slide-11.jpg";
-import slide22 from "../../../../assets/images/home/Slide/slide-22.jpg";
-import slide33 from "../../../../assets/images/home/Slide/slide-33.jpg";
-import title1 from "../../../../assets/images/home/Title/title_block_03.png";
-import product1 from "../../../../assets/images/home/Title/product_block_03.jpg";
-import title2 from "../../../../assets/images/home/Title/title_block_05.png";
-import product2 from "../../../../assets/images/home/Title/product_block_05.jpg";
-import title3 from "../../../../assets/images/home/Title/title_block_07.png";
-import product3 from "../../../../assets/images/home/Title/product_block_07.jpg";
+import {
+  slide1,
+  slide2,
+  slide3,
+  slide11,
+  slide22,
+  slide33,
+} from "../../../../assets/images/home/Slide/imageSlide";
+
+import {
+  title1,
+  title2,
+  title3,
+  product1,
+  product2,
+  product3,
+} from "../../../../assets/images/home/Title/imageTitle";
 import { AiOutlineStar } from "react-icons/ai";
 function CarouselSlide() {
   return (
@@ -128,7 +133,7 @@ function CarouselSlide() {
             <img src={title1} alt="image6" className={styles.img1} />
             <img src={product1} alt="image1" className={styles.img2} />
             <div className={styles.overlay}>
-              <Button as={Link} to="/home" variant="success">
+              <Button as={Link} to="/men" variant="success">
                 Xem sản phẩm
               </Button>
             </div>
@@ -137,7 +142,7 @@ function CarouselSlide() {
             <img src={title2} alt="image2" className={styles.img1} />
             <img src={product2} alt="image3" className={styles.img2} />
             <div className={styles.overlay}>
-              <Button as={Link} to="/home" variant="success">
+              <Button as={Link} to="/women" variant="success">
                 Xem sản phẩm
               </Button>
             </div>
@@ -146,7 +151,7 @@ function CarouselSlide() {
             <img src={title3} alt="image4" className={styles.img1} />
             <img src={product3} alt="image5" className={styles.img2} />
             <div className={styles.overlay}>
-              <Button as={Link} to="/home" variant="success">
+              <Button as={Link} to="/store" variant="success">
                 Xem sản phẩm
               </Button>
             </div>

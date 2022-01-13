@@ -443,12 +443,12 @@
     position: absolute;
     top: 70px;
     border-radius: 5px;
-    right: 65px;
+    right: 35px;
     z-index: 2;
     min-height: 100px;
-    width: 250px;
-    background-color: $colorgray-100;
-    border: 1px solid $colorgray-300;
+    width: 280px;
+    background-color: white;
+    border: 1px solid $colorgray-600;
     transition: all ease-in 0.01;
     display: none;
     p {
@@ -457,6 +457,66 @@
       text-align: center;
       font-size: 16px;
       font-weight: 500;
+    }
+    .Scroll {
+      max-height: 300px;
+      overflow-y: scroll;
+    }
+    &Product {
+      display: flex;
+      border-bottom: 1px solid $colorgray-500;
+      padding-bottom: 10px;
+      img {
+        margin: 10px 5px 10px 0;
+        width: 76px;
+        height: 57px;
+      }
+      &Div {
+        height: 40px;
+        width: 220px;
+        padding: 20px 0;
+        span {
+          color: $colorgray-600;
+          font-size: 12px;
+        }
+        p {
+          margin-left: -12px;
+          margin-bottom: 0;
+          padding: 0;
+          height: 18px;
+          font-size: 13px;
+          overflow: hidden;
+          display: block;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 1;
+        }
+      }
+      &Div2 {
+        border: 1px solid $colorgray-400;
+        color: $colorgray-400;
+        width: 30px;
+        height: 30px;
+        padding: 0 10px;
+        border-radius: 50%;
+        text-align: center;
+        margin-top: 20px;
+        margin-right: 0;
+        &:hover {
+          border-color: black !important;
+          color: black;
+        }
+      }
+    }
+    &Button {
+      margin: 10px 30px;
+      text-align: center;
+      color: $colorgray-300;
+      background-color: $colorbutton;
+      &:hover {
+        background-color: $colordanger;
+        color: $colorgray-300;
+      }
     }
   }
 

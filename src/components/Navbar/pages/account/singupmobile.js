@@ -1,11 +1,16 @@
 import styles from "./Account.module.scss";
 import { Button } from "react-bootstrap";
-import { useState } from "react";
-import { users } from "../../../../Json/Users.js";
-import useLocalStorage from "../../../hooks/useLocalStorage";
-
+import { useState, useEffect } from "react";
+import CallApi from "../../../api/callApi";
 function Singupmobile() {
-  const [dataUsers, setDataUsers] = useLocalStorage("users", users);
+  const [dataUsers, setDataUsers] = useState([]);
+  useEffect(() => {
+    CallApi("", "GET", null).then((res) => {
+      if (res) {
+        setDataUsers(res.data);
+      }
+    });
+  }, []);
   const [valueEmail, setValueEmail] = useState("");
   const [valuePassword, setValuePassword] = useState("");
   const [valuePassword2, setValuePassword2] = useState("");
@@ -19,8 +24,7 @@ function Singupmobile() {
   const [toggle, setToggle] = useState(false);
 
   const handleToggel = () => {
-    const newUsers = JSON.parse(window.localStorage.getItem("users"));
-    const result = (newUsers || users).find((el) => {
+    const result = dataUsers.find((el) => {
       return el.email === valueEmail3 && el.password === valuePassword3;
     });
     if (result !== undefined) {
@@ -51,9 +55,7 @@ function Singupmobile() {
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const resultEmail = re.test(String(valueEmail).toLowerCase());
     setToggleEmail(!resultEmail);
-    const userE = (dataUsers || users).find(
-      (user) => user.email === valueEmail
-    );
+    const userE = dataUsers.find((user) => user.email === valueEmail);
     setToggleEmail2(userE ? true : false);
   };
   const updateUsers = () => {
@@ -64,22 +66,19 @@ function Singupmobile() {
       !toggleEmail2 &&
       valueEmail.length !== 0
     ) {
-      setDataUsers([
-        ...dataUsers,
-        {
-          id: dataUsers.length + 1 || users.length + 1,
-          email: valueEmail,
-          password: valuePassword,
-          addresses: [],
-          fullName: {
-            firstName: "",
-            lastName: "",
-            displayName: "",
-          },
-          order: [],
-          cart: [],
+      CallApi("create/user", "POST", {
+        id: dataUsers.length + 1,
+        email: valueEmail,
+        password: valuePassword,
+        addresses: [],
+        fullName: {
+          firstName: "",
+          lastName: "",
+          displayName: "",
         },
-      ]);
+        order: [],
+        cart: [],
+      });
       setValueEmail("");
       setValuePassword("");
       setValuePassword2("");

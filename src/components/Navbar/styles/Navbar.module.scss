@@ -6,7 +6,7 @@
   width: 100%;
   transition: top 0.5s;
   top: 0;
-  z-index: 3;
+  z-index: 1000;
   .header {
     @include mobile {
       display: none;
@@ -30,7 +30,7 @@
       margin-top: 5px;
     }
     &Nav {
-      box-shadow: 3px 3px 3px $colorgray-500;
+      // box-shadow: 3px 3px 3px $colorgray-200;
       top: 80px;
       display: flex;
       width: 100%;
@@ -83,6 +83,9 @@
         }
         &Active {
           border-bottom: 3px solid $colordanger;
+        }
+        &:hover{
+          color:$colorbutton !important;
         }
       }
       .hoverNav {
@@ -183,21 +186,7 @@
   }
 }
 
-.introduce {
-  @include Relative;
-}
-.children {
-  @include Relative;
-}
-.accessory {
-  @include Relative;
-}
-.news {
-  @include Relative;
-}
-.contact {
-  @include Relative;
-}
+
 .navlink {
   padding: 15px 20px !important;
   border-bottom: 0.5px solid #ccc;
@@ -216,4 +205,17 @@
   font-size: 15px;
   color: #555 !important;
   // border-bottom: 1px solid red;
+}
+.Fixed {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  border: 2px solid $colorgray-500;
+  padding: 7.5px 11.5px;
+  border-radius: 50%;
+  &:hover {
+    background-color: $colorbutton;
+    border: none;
+    color: white;
+  }
 }

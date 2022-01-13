@@ -1,10 +1,26 @@
 import React from "react";
 import { Zoom } from "react-slideshow-image";
 import styles from "./home.module.scss";
-
-function Slideshow(props) {
-  const images = [props.img1, props.img2, props.img3, props.img4];
-
+import { useContext } from "react";
+import { Images } from "./Addcart";
+function Slideshow() {
+  const arrImage = useContext(Images);
+  let images = [arrImage.img1];
+  if (arrImage.img4) {
+    images.push(arrImage.img4);
+  }
+  if (arrImage.img2) {
+    images.push(arrImage.img2);
+  }
+  if (arrImage.img3) {
+    images.push(arrImage.img3);
+  }
+  if (arrImage.img5) {
+    images.push(arrImage.img5);
+  }
+  if (arrImage.img6) {
+    images.push(arrImage.img6);
+  }
   const zoomOutProperties = {
     indicators: true,
     scale: 0.4,
@@ -14,7 +30,9 @@ function Slideshow(props) {
     transitionDuration: 1000,
   };
   return (
-    <div>
+  <div>
+    {images.length>1 &&(
+      <div>
       <Zoom {...zoomOutProperties} className={styles.slideshow}>
         {images.map((each, index) => (
           <img
@@ -26,6 +44,13 @@ function Slideshow(props) {
         ))}
       </Zoom>
     </div>
+    )}
+    {images.length===1&&(
+      <div>
+      <img className={styles.slideshowImage} style={{marginTop:50}} alt="" src={images[0]} /> 
+      </div>
+    )}
+  </div>
   );
 }
 

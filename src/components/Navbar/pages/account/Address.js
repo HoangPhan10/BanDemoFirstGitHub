@@ -1,21 +1,31 @@
 import styles from "./Account.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { GrAdd } from "react-icons/gr";
+import CallApi from "../../../api/callApi";
 function Address() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-  const [toggle, setToggle] = useState(false);
+  const [toggle2, setToggle2] = useState(false);
 
   const [name1, setName1] = useState("");
   const [phone1, setPhone1] = useState("");
   const [address1, setAddress1] = useState("");
-  const [idAddress3, setIdAddress3] = useState(1);
   const [toggle3, setToggle3] = useState(false);
-
-  const newUsers = JSON.parse(window.localStorage.getItem("user"));
-  const arrUsers = JSON.parse(window.localStorage.getItem("users"));
+  const id = JSON.parse(window.localStorage.getItem("id"));
+  const index = JSON.parse(window.localStorage.getItem("index"));
+  const [addressesUser, setAddressesUser] = useState([]);
+  useEffect(() => {
+    CallApi(`users/${id}`, "GET", null).then((res) => {
+      if (res) {
+        setAddressesUser(res.data.addresses);
+      }
+    });
+  }, [id]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -28,97 +38,78 @@ function Address() {
   const [show2, setShow2] = useState(false);
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
-
-  const handleDelete = () => {
-    newUsers.addresses.splice(idAddress3, 1);
-    window.localStorage.setItem("user", JSON.stringify(newUsers));
-    arrUsers.map((el) => {
-      if (el.id === newUsers.id) {
-        el.addresses = newUsers.addresses;
-      }
-      return 0;
-    });
-
-    window.localStorage.setItem("users", JSON.stringify(arrUsers));
-    handleClose2();
+  const blurPhone = () => {
+    const find = addressesUser.find((el) => el.phone === phone);
+    if (find) {
+      setToggle2(true);
+    } else {
+      setToggle2(false);
+    }
   };
-  const handleGetIdAddress = (index) => {
-    setIdAddress3(index);
-    handleShow2();
+  const blurPhone2 = () => {
+    const find = addressesUser.find((el) => el.phone === phone1);
+    if (find && addressesUser[index].phone !== phone1) {
+      setToggle3(true);
+    } else {
+      setToggle3(false);
+    }
   };
   const handleSubmit = () => {
     if (
       name.trim().length !== 0 &&
       phone.trim().length !== 0 &&
-      address.trim().length !== 0
+      address.trim().length !== 0 &&
+      !toggle2
     ) {
-      const user = {
-        ...newUsers,
-        addresses: [
-          ...newUsers.addresses,
-          {
-            name,
-            phone,
-            addressHome: address,
-            id: newUsers.addresses.length + 1,
-          },
-        ],
-      };
-      window.localStorage.setItem("user", JSON.stringify(user));
-      handleClose();
-      setToggle(false);
-      setName("");
-      setPhone();
-      setAddress("");
-      arrUsers.map((el) => {
-        if (el.id === newUsers.id) {
-          el.addresses = [
-            ...newUsers.addresses,
-            {
-              name,
-              phone,
-              addressHome: address,
-              id: newUsers.addresses.length + 1,
-            },
-          ];
+      CallApi(`user/${id}`, "POST", {
+        name: name,
+        phone: phone,
+        addressHome: address,
+      }).then((res) => {
+        if (res) {
+          setAddressesUser(res.data.addresses);
         }
-        return 0;
       });
-      window.localStorage.setItem("users", JSON.stringify(arrUsers));
-    } else {
-      setToggle(true);
+
+      setName("");
+      setPhone("");
+      setAddress("");
+      handleClose();
     }
   };
-  const handleUpdate = (name, phone, address, id) => {
+  const handleUpdate = (name, phone, address, index) => {
+    handleShow3();
+    window.localStorage.setItem("index", JSON.stringify(index));
     setName1(name);
     setPhone1(phone);
     setAddress1(address);
-    setIdAddress3(id);
-    handleShow3();
   };
   const handleSubmitUpdate = () => {
-    if (name1.trim().length && phone1.trim().length && address1.trim().length) {
-      setToggle3(false);
-      const addresses = newUsers.addresses.map((el, index) => {
-        if (index === idAddress3) {
-          el = {
-            name: name1,
-            phone: phone1,
-            addressHome: address1,
-            id: idAddress3,
-          };
-        }
-        return el;
+    if (
+      name1.trim().length !== 0 &&
+      phone1.trim().length !== 0 &&
+      address1.trim().length !== 0 &&
+      !toggle3
+    ) {
+      CallApi(`user/${id}/${index}`, "POST", {
+        name: name1,
+        phone: phone1,
+        addressHome: address1,
+      }).then((res) => {
+        setAddressesUser(res.data.addresses);
       });
-      newUsers.addresses = addresses;
-      window.localStorage.setItem("user", JSON.stringify(newUsers));
-      arrUsers[newUsers.id - 1] = newUsers;
-      window.localStorage.setItem("users", JSON.stringify(arrUsers));
-
       handleClose3();
-    } else {
-      setToggle3(true);
     }
+  };
+  const handleGetIdAddress = (index) => {
+    window.localStorage.setItem("index", JSON.stringify(index));
+    handleShow2();
+  };
+  const handleDelete = () => {
+    CallApi(`user/${id}/${index}`, "GET", null).then((res) => {
+      setAddressesUser(res.data.addresses);
+    });
+    handleClose2();
   };
   return (
     <div className={styles.address}>
@@ -151,6 +142,7 @@ function Address() {
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="Số điện thoại"
                   style={{ width: "48%" }}
+                  onBlur={blurPhone}
                   type="text"
                 />
 
@@ -161,7 +153,11 @@ function Address() {
                   style={{ width: "100%" }}
                   type="text"
                 />
-                {toggle && <span>Vui lòng nhập đầy đủ thông tin</span>}
+                {toggle2 && (
+                  <span style={{ color: "red" }}>
+                    Số điện thoại đã được đăng ký
+                  </span>
+                )}
               </div>
             </Modal.Body>
             <Modal.Footer>
@@ -175,9 +171,9 @@ function Address() {
           </Modal>
         </div>
       </div>
-      {newUsers.addresses.length !== 0 && (
+      {addressesUser.length !== 0 && (
         <>
-          {newUsers.addresses.map((address, index) => (
+          {addressesUser.map((address, index) => (
             <div key={index} className={styles.addressContent}>
               <div>
                 <p>
@@ -231,6 +227,7 @@ function Address() {
                         <input
                           value={phone1}
                           onChange={(e) => setPhone1(e.target.value)}
+                          onBlur={blurPhone2}
                           placeholder="Số điện thoại"
                           style={{ width: "65%" }}
                           type="text"
@@ -247,7 +244,7 @@ function Address() {
                           type="text"
                         />
                       </div>
-                      {toggle3 && <span>Vui lòng nhập đầy đủ thông tin</span>}
+                      {toggle3 && <span>Số điện thoại đã được đăng ký</span>}
                     </div>
                   </Modal.Body>
                   <Modal.Footer>
@@ -283,7 +280,7 @@ function Address() {
           ))}
         </>
       )}
-      {newUsers.addresses.length === 0 && (
+      {addressesUser.length === 0 && (
         <div
           style={{
             justifyContent: "center",
