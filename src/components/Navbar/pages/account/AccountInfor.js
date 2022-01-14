@@ -2,7 +2,7 @@ import styles from "./Account.module.scss";
 import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import CallApi from "../../../api/callApi";
-
+import {re} from "./checkEmail"
 function AccountInfor() {
   const id = JSON.parse(window.localStorage.getItem("id"));
   const [passUser, setPassUser] = useState("");
@@ -56,8 +56,7 @@ function AccountInfor() {
     setToggle3(password3 !== password2);
   };
   const handle4 = () => {
-    const re =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    
     const resultEmail = re.test(String(email).toLowerCase());
     const set = users.find((el) => {
       if (el.email === email && el.email !== emailUser) {

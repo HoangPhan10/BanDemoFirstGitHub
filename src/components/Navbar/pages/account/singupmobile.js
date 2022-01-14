@@ -2,6 +2,7 @@ import styles from "./Account.module.scss";
 import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import CallApi from "../../../api/callApi";
+import {re} from "./checkEmail"
 function Singupmobile() {
   const [dataUsers, setDataUsers] = useState([]);
   useEffect(() => {
@@ -51,8 +52,6 @@ function Singupmobile() {
   };
 
   const handleBlurEmail = () => {
-    const re =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const resultEmail = re.test(String(valueEmail).toLowerCase());
     setToggleEmail(!resultEmail);
     const userE = dataUsers.find((user) => user.email === valueEmail);
