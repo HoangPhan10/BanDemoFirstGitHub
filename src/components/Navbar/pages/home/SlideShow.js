@@ -22,7 +22,7 @@ function Slideshow() {
     images.push(arrImage.img6);
   }
   const zoomOutProperties = {
-    indicators: true,
+    // indicators: true,
     scale: 0.4,
     indicators: (i) => (
       <div className={styles.indicator}>{<img src={images[i]} alt="" />}</div>

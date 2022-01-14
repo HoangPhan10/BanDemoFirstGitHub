@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import clsx from "clsx";
 import styles from "./Account.module.scss";
 import CallApi from "../../../api/callApi";
+import {re} from './checkEmail'
 function Login() {
   const [show, setShow] = useState(false);
   const [dataUsers, setDataUsers] = useState([]);
@@ -38,8 +39,8 @@ function Login() {
   };
 
   const handleBlurEmail = () => {
-    const re =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    
     const resultEmail = re.test(String(valueEmail).toLowerCase());
     setToggleEmail(!resultEmail);
     CallApi("", "GET", null).then((res) => {
