@@ -58,6 +58,9 @@ function Payment() {
         payment: value,
       });
       CallApi(`users/cart/${id}`, "GET", null);
+      setInterval(() => {
+        window.location.href = "/account/order";
+      }, 2000);
     }
   };
   return (
@@ -125,9 +128,6 @@ function Payment() {
         <a
           className={styles.Button}
           onClick={handleOrder}
-          // as={Link}
-          // to="/account/order"
-          href="/account/order"
         >
           ĐẶT HÀNG
         </a>
