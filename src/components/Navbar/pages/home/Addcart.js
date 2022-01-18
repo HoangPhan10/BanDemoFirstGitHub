@@ -47,6 +47,7 @@ function AddCart(props) {
   };
 
   const handleAddCart = (namePrd, price, img) => {
+    
     if (parseInt(id) === 0) {
       alert("Qúy khách vui lòng đăng nhập");
     } else {
@@ -59,7 +60,9 @@ function AddCart(props) {
         img: img,
       });
       setNum(1);
-      window.location.href = "/viewcart";
+      setInterval(() => {
+        window.location.href = "/viewcart";
+      }, 2000);
     }
   };
   useEffect(() => {
