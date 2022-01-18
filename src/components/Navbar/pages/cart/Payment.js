@@ -125,12 +125,12 @@ function Payment() {
             </RadioGroup>
           </FormControl>
         </div>
-        <a
+        <button
           className={styles.Button}
           onClick={handleOrder}
         >
           ĐẶT HÀNG
-        </a>
+        </button>
       </div>
       <div className={styles.information}>
         <strong>THÔNG TIN TÀI KHOẢN</strong>
